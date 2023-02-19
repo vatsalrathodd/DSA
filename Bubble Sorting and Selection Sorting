@@ -1,0 +1,93 @@
+#include <cmath>
+#include <cstdio>
+#include <vector>
+#include <iostream>
+#include <algorithm>
+using namespace std;
+
+
+int main() {
+    int n;
+    cin>>n;
+    int roll_no[n];
+    int sub_time[n];
+   
+    for(int i=0;i<n;i++)
+    {
+        cin>>roll_no[i];
+        cin>>sub_time[i];
+    }
+   
+    int choice;
+    cin>>choice;
+    int no_of_comparison=0;
+    int no_of_swaps=0;
+    int temp;
+   
+   
+    if(choice==1)
+    {
+         int flag=0;
+         for(int i=0;i<n;i++)
+         {
+             for(int j=0;j<n-i-1;j++)
+             {
+                 if(sub_time[j]>sub_time[j+1])
+                 {
+                     temp=sub_time[j];
+                     sub_time[j]=sub_time[j+1];
+                     sub_time[j+1]=temp;
+
+                     temp=roll_no[j];
+                     roll_no[j]=roll_no[j+1];
+                     roll_no[j+1]=temp;
+                     no_of_swaps++;
+                     
+                     flag=1;
+                 }
+                 no_of_comparison++;
+             }
+             if(flag==0)
+             {
+                 break;
+             }
+         }
+    }
+    else if(choice==2)
+    {
+        int minpos;
+        for(int i=0;i<n;i++)
+        {
+            minpos=i;
+            for(int j=i+1;j<n;j++)
+            {
+                if(sub_time[j]<sub_time[minpos])
+                {
+                    minpos=j;
+                }
+                no_of_comparison++;
+            }
+            if(i!=minpos)
+            {
+                temp=sub_time[i];
+                sub_time[i]=sub_time[minpos];
+                sub_time[minpos]=temp;
+               
+                temp=roll_no[i];
+                roll_no[i]=roll_no[minpos];
+                roll_no[minpos]=temp;
+               
+                no_of_swaps++;
+            }
+        }
+    }
+   
+    for(int i=0;i<n;i++)
+    {
+        cout<<roll_no[i]<<" "<<sub_time[i]<<endl;
+    }
+    cout<<no_of_comparison<<endl;
+    cout<<no_of_swaps<<endl;
+    cout<<roll_no[0]<<","<<roll_no[1];
+    return 0;
+}
